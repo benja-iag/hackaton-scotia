@@ -2,6 +2,7 @@ import judini
 from judini.agent import Agent
 import os
 import asyncio #pip install flask[async]
+import uuid
 from dotenv import load_dotenv
 
 from flask import Flask, request
@@ -24,8 +25,11 @@ async def process_mail():
     from_msg = request.args.get('from_msg')
     to_msg = request.args.get('to_msg')
     prompt = request.args.get('body')
+    prompt = subject +'\n'+prompt
+    uuid_val = uuid.uuid5(uuid.NAMESPACE_DNS,prompt)
+    print (uuid_val)
     # prompt = "Buenos dias, necesito saber que informacion tengo que mandar para obtener un credito de consumo"
-    tarea = asyncio.create_task(
+    asyncio.create_task(
         response_processing(prompt)
     )
     auto_response = "Generando respuesta..."
@@ -37,4 +41,6 @@ async def response_processing(prompt):
 
 
 if __name__ == '__main__':
-    asyncio.run(app.run())
+    loop = asyncio.get_event_loop()
+    loop.create_task(app.run())
+    loop.run_forever()
