@@ -1,11 +1,13 @@
 import { Header } from "@/components/Header";
 import { MailResponse } from "@/types/types";
 import { Card, CardContent, Grid, TextField, Typography } from "@mui/material";
+import React from "react";
 
 type ResultProps = {
   mailResponse: MailResponse[];
 };
 export default function Result({ mailResponse }: ResultProps) {
+  const [color, setColor] = React.useState<string>("");
   return (
     <>
       <Grid container spacing={2} columns={12}>
@@ -14,6 +16,13 @@ export default function Result({ mailResponse }: ResultProps) {
             <Grid item xs={6}>
               <Card>
                 <CardContent>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    Email del cliente
+                  </Typography>
                   <Typography sx={{ fontSize: 14 }} gutterBottom>
                     Asunto: {mail.subject}
                   </Typography>
@@ -22,10 +31,6 @@ export default function Result({ mailResponse }: ResultProps) {
                     Para: {mail.to}
                   </Typography>
                   <Typography variant="body1">cuerpo: {mail.body}</Typography>
-                  <Typography variant="h6">Respuesta Automática:</Typography>
-                  <Typography variant="body2">
-                    {mail.generatedResponse}
-                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -37,10 +42,14 @@ export default function Result({ mailResponse }: ResultProps) {
                     color="text.secondary"
                     gutterBottom
                   >
-                    Email generado
+                    Email generado - Tipo de urgencia: {mail.classification }
                   </Typography>
-                  <Typography variant="body2">
-                    {mail.generatedResponse}
+                  <Typography
+                    variant="body2"
+                    style={{ whiteSpace: "pre-wrap" }}
+                  >
+                    {mail.generatedResponse &&
+                      JSON.parse(mail.generatedResponse).text}
                   </Typography>
                 </CardContent>
               </Card>

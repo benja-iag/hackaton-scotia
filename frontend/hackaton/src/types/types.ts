@@ -4,6 +4,7 @@ export type MailResponse = {
   to: string;
   body: string;
   generatedResponse: string;
+  classification: number;
   done: string;
   created_at: string;
 };
