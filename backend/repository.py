@@ -16,6 +16,14 @@ class MailRepository:
                 )
                 return cur.fetchone()[0]
 
+    def get_mails(self):
+        with psycopg2.connect(self.connection_string) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT * FROM mails"
+                )
+                return cur.fetchall()
+
     def get_mail_by_id(self, mail_id):
         with psycopg2.connect(self.connection_string) as conn:
             with conn.cursor() as cur:
