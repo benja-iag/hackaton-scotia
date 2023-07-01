@@ -18,8 +18,8 @@ agent = Agent(api_key,agent_id)
 
 load_dotenv()
 
-@app.route("/")
-async def main():
+@app.route("/process_mail")
+async def process_mail():
     subject = request.args.get('subject')
     from_msg = request.args.get('from_msg')
     to_msg = request.args.get('to_msg')
