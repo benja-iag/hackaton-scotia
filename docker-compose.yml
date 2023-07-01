@@ -1,0 +1,40 @@
+version: '3.8'
+# services:
+#   api:
+#     build: ./backend
+#     env_file: .env
+#     ports:
+#       - '3000:3000'
+#     volumes:
+#       - ./backend:/app/
+#       - ./db/data.json:/blockedUsers.json
+#     depends_on:
+#       - 
+
+# version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+
+  backend:
+    env_file: .env
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./backend:/app/
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test

@@ -1,0 +1,8 @@
+certifi==2023.5.7
+charset-normalizer==3.1.0
+idna==3.4
+judini==0.0.8
+python-dotenv==1.0.0
+requests==2.31.0
+urllib3==2.0.3
+psycopg2==2.9.6
