@@ -1,7 +1,7 @@
 import judini
 from judini.agent import Agent
 import os
-import asyncio
+import asyncio #pip install flask[async]
 from dotenv import load_dotenv
 
 from flask import Flask, request
@@ -18,19 +18,20 @@ agent = Agent(api_key,agent_id)
 
 load_dotenv()
 
-
 @app.route("/")
-async def main():
-    prompt = request.args.get('prompt')
+def main():
+    prompt = request.args.get('body')
     # prompt = "Buenos dias, necesito saber que informacion tengo que mandar para obtener un credito de consumo"
-    await asyncio.gather(
-
-
+    asyncio.create_task(
+        response_processing(prompt)
     )
-    response = agent.completion(prompt=prompt, stream=False)
     auto_response = "Generando respuesta..."
     return auto_response
 
-async def response():
-    return "hola"
-asyncio.run(main())
+async def response_processing(prompt):
+    response = agent.completion(prompt=prompt, stream=False)
+    print(response)
+
+
+if __name__ == '__main__':
+    app.run()
