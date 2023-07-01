@@ -3,17 +3,11 @@ import express from "express";
 import { spawn } from "child_process";
 import { v4 } from "uuid";
 import dotenv from "dotenv";
-<<<<<<< HEAD
-dotenv.config();
-
-const app = express();
-=======
 import cors from "cors";
 dotenv.config();
 
 const app = express();
 app.use(cors());
->>>>>>> d25d862
 
 const data = {};
 
@@ -29,11 +23,7 @@ const manageProcess = (process, id, responser) => {
     console.log(buffer);
     if (code === 0) {
       if (responser) {
-<<<<<<< HEAD
-        data[id] = { ...data[id], response: buffer, done: true };
-=======
         data[id] = { ...data[id], generatedResponse: buffer, done: true };
->>>>>>> d25d862
       } else {
         data[id] = {
           ...data[id],
@@ -67,11 +57,7 @@ app.get("/process_mail", async (req, res) => {
   // VALUES
   // (${id}, ${body}, ${subject}, ${from}, ${to})
   // `;
-<<<<<<< HEAD
-  data[id] = { body, subject, from, to, done: false };
-=======
   data[id] = { body, subject, from, to, done: false, created_at: new Date() };
->>>>>>> d25d862
 
   console.log(data[id]);
   const classifierProcess = spawn("python3", [
