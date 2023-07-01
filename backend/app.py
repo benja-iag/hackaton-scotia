@@ -19,10 +19,13 @@ agent = Agent(api_key,agent_id)
 load_dotenv()
 
 @app.route("/")
-def main():
+async def main():
+    subject = request.args.get('subject')
+    from_msg = request.args.get('from_msg')
+    to_msg = request.args.get('to_msg')
     prompt = request.args.get('body')
     # prompt = "Buenos dias, necesito saber que informacion tengo que mandar para obtener un credito de consumo"
-    asyncio.create_task(
+    tarea = asyncio.create_task(
         response_processing(prompt)
     )
     auto_response = "Generando respuesta..."
@@ -34,4 +37,4 @@ async def response_processing(prompt):
 
 
 if __name__ == '__main__':
-    app.run()
+    asyncio.run(app.run())
